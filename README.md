@@ -2,33 +2,19 @@
 
 A simple, retro-themed local file server built with Flask.
 
-Easily serve and download files from a shared `Uploads/` directory on your local Wi-Fi network. No external tools required — just run the Python script and access the web interface from any device on the same network.
+Easily serve and download files from a shared `Uploads/` directory on your local Wi-Fi network. No external tools required — just run the Python script and access the web UI from any device on the same network.
 
 ![screenshot](screenshot.png)
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🌐 Access the server from any device on the same Wi-Fi
-- 📁 Download files via a clean, retro-styled web interface
-- 🖥️ No setup needed beyond Python and Flask
-- 🧊 Minimal UI with drag-and-drop instructions
-
----
-
-## 🗂️ Project Structure
-
-```
-snowflask/
-├── snowflask.py                 # Main Flask server
-├── Uploads/               # Folder where you put the files to share
-├── templates/
-│   └── index.html         # Web UI template
-├── static/
-│   └── style.css          # UI styling
-└── req.txt       # Dependencies
-```
+- Access the server from any device on the same Wi-Fi
+- Download files via a clean, retro-styled web interface
+- No setup needed beyond Python and Flask
+- Minimal UI with drag-and-drop instructions
+- Sanitised File Traversal
 
 ---
 

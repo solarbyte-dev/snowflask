@@ -1,34 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>❄️ snow.flask - File Server</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="UTF-8" />
+  <title>❄️ snow.flask - File Server</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-    <header>
-        <h1>❄️ snow.flask </h1>
-        <h3> local file server</h3>
-    </header>
+<header>
+  <h1>❄️ snow.flask</h1>
+  <h3>local file server</h3>
+</header>
 
-    <main>
-        <div class="instructions">
-            <p>📂 To <strong>upload</strong> files, just drag and drop them into the <code>/Uploads</code> folder located in the project directory.</p>
-            <p> Refresh this page to see the updated file list.</p>
-        </div>
+<main>
+  <div class="instructions">
+    <p>📂 To <strong>upload</strong> files, just drag and drop them into the <code>/Uploads</code> folder located in the project directory.</p>
+    <p>Refresh this page to see the updated file list.</p>
+  </div>
 
-        <h2>📁 Available Files:</h2>
+  <h2>📁 Files:</h2>
+  <div class="file-tree">
+
+    {# Recursive macro to render folder structure #}
+    {% macro render_folder(folder) %}
+      <details open>
+        <summary class="folder-name">📁 {{ folder.name.split('/')[-1] if folder.name else '/' }}</summary>
         <ul>
-            {% for file in files %}
-                <li><a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></li>
-            {% endfor %}
-        </ul>
-    </main>
+          {# Render files with emojis #}
+          {% for file in folder.files %}
+            {% set ext = file.split('.')[-1].lower() %}
+            <li class="file-entry">
+              {% if ext in ['png', 'jpeg', 'jpg'] %}
+                🖼️
+              {% elif ext in ['mp4', 'mkv', 'webm'] %}
+                🎥
+              {% elif ext in ['txt', 'md', 'c', 'cpp', 'py'] %}
+                📄
+              {% else %}
+                ⚙️
+              {% endif %}
+              <a href="{{ url_for('download_file', filename=(folder.name + '/' + file).lstrip('/')) }}">{{ file }}</a>
+            </li>
+          {% endfor %}
 
-    <footer>
-        ❄️ snow.flask running on your LAN
-    </footer>
+          {# Recursive render subfolders #}
+          {% for subfolder in folder.subfolders %}
+            <li>
+              {{ render_folder(subfolder) }}
+            </li>
+          {% endfor %}
+        </ul>
+      </details>
+    {% endmacro %}
+
+    {% for folder in structure %}
+      {{ render_folder(folder) }}
+    {% endfor %}
+  </div>
+</main>
+
+<footer>
+  ❄️ snow.flask running on your LAN
+</footer>
 
 </body>
 </html>
