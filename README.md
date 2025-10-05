@@ -4,7 +4,7 @@ A simple, retro-themed local file server built with Flask.
 
 Easily serve and download files from a shared `Uploads/` directory on your local Wi-Fi network. No external tools required — just run the Python script and access the web interface from any device on the same network.
 
-[screenshot](screenshot.png)
+![screenshot](screenshot.png)
 
 ---
 
