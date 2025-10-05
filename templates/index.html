@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>❄️ snow.flask - File Server</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header>
+        <h1>❄️ snow.flask </h1>
+        <h3> local file server</h3>
+    </header>
+
+    <main>
+        <div class="instructions">
+            <p>📂 To <strong>upload</strong> files, just drag and drop them into the <code>/Uploads</code> folder located in the project directory.</p>
+            <p> Refresh this page to see the updated file list.</p>
+        </div>
+
+        <h2>📁 Available Files:</h2>
+        <ul>
+            {% for file in files %}
+                <li><a href="{{ url_for('download_file', filename=file) }}">{{ file }}</a></li>
+            {% endfor %}
+        </ul>
+    </main>
+
+    <footer>
+        ❄️ snow.flask running on your LAN
+    </footer>
+
+</body>
+</html>
